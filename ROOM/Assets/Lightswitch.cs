@@ -1,14 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class light : MonoBehaviour
+public class LightSwitch : MonoBehaviour
 {
-    public Light light;
+    public Light Lightswitch; 
+
     // Start is called before the first frame update
-    void Start() {
-        light = GetComponent<Light>();
-        if ( Input.GetKeyDown("tab"))
+    void Start()
+    {
+        Lightswitch = GetComponent<Light>(); // Corrected variable name
+        if (Input.GetKeyDown("l"))
         {
-            light.color = (1,0,1,1);
+            Lightswitch.color = new Color(1f, 0f, 1f, 1f); 
         }
     }
 }

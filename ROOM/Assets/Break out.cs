@@ -1,57 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerViewSwitch : MonoBehaviour
+public class Breakout : MonoBehaviour
 {
-    public Transform roomTransform; // Set this to the initial position within the room
-    public Transform externalViewTransform; // Set this to the external viewing point
+    public InputActionReference action;
 
-    private bool inRoom = true;
-
-    // Assuming you have a button input named "SwitchViewButton". Adjust based on your setup.
-    private string switchViewButton = "SwitchViewButton";
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Set the initial position to the room
-        transform.position = roomTransform.position;
-        transform.rotation = roomTransform.rotation;
-    }
 
-    // Update is called once per frame
+    } 
+
     void Update()
     {
-        if (Input.GetButtonDown(switchViewButton))
+        action.action.Enable();
+        action.action.performed += (ctx) =>
         {
-            ToggleView();
-        }
-    }
-
-    void ToggleView()
-    {
-        if (inRoom)
-        {
-            SwitchToExternalView();
-        }
-        else
-        {
-            SwitchToRoomView();
-        }
-    }
-
-    void SwitchToExternalView()
-    {
-        transform.position = externalViewTransform.position;
-        transform.rotation = externalViewTransform.rotation;
-        inRoom = false;
-    }
-
-    void SwitchToRoomView()
-    {
-        transform.position = roomTransform.position;
-        transform.rotation = roomTransform.rotation;
-        inRoom = true;
+            if (transform.position == new Vector3(0, 0, 0))
+            {
+                transform.Translate(Vector3.up * 25);
+            }
+            else if (transform.position == new Vector3(0, 25, 0))
+            {
+               transform.Translate(Vector3.down * 25); 
+            }
+        };
     }
 }
